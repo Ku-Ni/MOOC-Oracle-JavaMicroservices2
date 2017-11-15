@@ -2,6 +2,8 @@
 
 package com.example.rest.employee;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,16 +43,39 @@ public class EmployeeController {
 	// TODO: Get employees by lastName (Week 2)
 	@RequestMapping(method = RequestMethod.GET, value = "/lastname/{name}")
 	public ResponseEntity getByLastName(@PathVariable String name) {
-		return null;
 
+		List<Employee> match = edao.getByLastName(name);
+		
+		if (match == null || match.isEmpty()) 
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
-
+		return new ResponseEntity<>(match, HttpStatus.OK);
 	}
 
 	// TODO: Get employee by title (Week 2)
+	@RequestMapping(method = RequestMethod.GET, value = "/title/{title}")
+	public ResponseEntity getByTitle(@PathVariable String title) {
+
+		List<Employee> match = edao.getByTitle(title);
+		
+		if (match == null || match.isEmpty()) 
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<>(match, HttpStatus.OK);
+	}
 
 
 	// TODO: Get employee by dept (Week 2)
+	@RequestMapping(method = RequestMethod.GET, value = "/department/{dept}")
+	public ResponseEntity getByDepartment(@PathVariable String dept) {
+
+		List<Employee> match = edao.getByDept(dept);
+		
+		if (match == null || match.isEmpty()) 
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<>(match, HttpStatus.OK);
+	}
 
 
 
